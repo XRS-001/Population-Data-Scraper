@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "JWFYlLCNmEbDaIfL6A115Otg7IXobWIt/gRQyFFVdW4qRLLhq0Ru5Oudo77/Ac7nfZAWJtCqeXmZEOKixYYAlw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Con_P\\Desktop\\Population Data Scraper\\Population-Data-Scraper-3\\Population Data Scraper\\Population Data Scraper.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Con_P\\.nuget\\packages\\htmlagilitypack\\1.11.48\\htmlagilitypack.1.11.48.nupkg.sha512"
+  ],
+  "logs": []
+}
