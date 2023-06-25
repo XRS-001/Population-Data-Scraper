@@ -247,26 +247,27 @@ class Program
                 // Load the HTML content from the Worldometer website
                 htmlDoc.LoadHtml(html);
 
-                bool countryFound = false;
                 try
                 {
                     // Find the table body element
                     var tableBody = htmlDoc.DocumentNode.SelectSingleNode("//tbody");
 
-                    // Find all table rows within the table body
-                    var tableRows = tableBody.SelectNodes(".//tr");
-
-                    foreach (var row in tableRows)
+                    if (tableBody != null)
                     {
-                        countryFound = true;
-                        string rank = row.SelectSingleNode(".//td[1]")?.InnerText;
-                        string city = row.SelectSingleNode(".//td[2]")?.InnerText;
-                        string population = row.SelectSingleNode(".//td[3]")?.InnerText;
-                        Console.WriteLine($"{rank}. {city} population: {population}");
-                        if (!countryFound)
+                        // Find all table rows within the table body
+                        var tableRows = tableBody.SelectNodes(".//tr");
+
+                        foreach (var row in tableRows)
                         {
-                            Console.WriteLine("City data not found.");
+                            string rank = row.SelectSingleNode(".//td[1]")?.InnerText;
+                            string city = row.SelectSingleNode(".//td[2]")?.InnerText;
+                            string population = row.SelectSingleNode(".//td[3]")?.InnerText;
+                            Console.WriteLine($"{rank}. {city} population: {population}");
                         }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Country not found.");
                     }
                 }
                 catch(Exception ex)
@@ -305,61 +306,70 @@ class Program
                     // Find the table body element
                     var tableBody = htmlDoc.DocumentNode.SelectSingleNode("//tbody");
 
-                    // Find all table rows within the table body
-                    var tableRows = tableBody.SelectNodes(".//tr");
-                    double continentPopulation = 0;
-                    double continentLandArea = 0;
-                    List<object> countries = new List<object>();
-                    foreach (var row in tableRows)
+                    if (tableBody != null)
                     {
-                        regionFound = true;
-                        string rank = row.SelectSingleNode(".//td[1]")?.InnerText;
-                        string country = row.SelectSingleNode(".//td[2]")?.InnerText;
-                        double landArea = double.Parse(row.SelectSingleNode(".//td[7]")?.InnerText.Replace(",", string.Empty));
-                        double population = double.Parse(row.SelectSingleNode(".//td[3]")?.InnerText.Replace(",", string.Empty));
-                        double landAreaPerPerson = population / landArea;
-                        countries.Add(rank);
-                        countries.Add(country);
-                        countries.Add(population.ToString("#,###"));
-                        countries.Add($"{landArea}");
-                        countries.Add($"{landAreaPerPerson:F1} Km²");
-                        continentLandArea += landArea;
-                        continentPopulation += population;
-                    }
-                    Console.WriteLine();
-                    string continentLandAreaPerPerson = (continentPopulation / continentLandArea).ToString("#,###");
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Continent Population:");
-                    Console.ResetColor();
-                    Console.WriteLine(continentPopulation.ToString("#,###"));
-                    Console.WriteLine();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Continent Land Area:");
-                    Console.ResetColor();
-                    Console.WriteLine(continentLandArea.ToString("#,###"));
-                    Console.WriteLine();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Continent Land Area per person:");
-                    Console.ResetColor();
-                    Console.WriteLine($"{continentLandAreaPerPerson}Km²");
-                    Console.WriteLine();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Three most populated countries in this region:");
-                    Console.ResetColor();
-                    Console.WriteLine();
-                    for (int i = 0; i < 15; i += 5)
-                    {
-                        string rank = countries[i].ToString();
-                        string country = countries[i + 1].ToString();
-                        string population = countries[i + 2].ToString();
-                        string landArea = string.Format("{0:#,###}", Convert.ToDouble(countries[i + 3]));
-                        string landAreaPerPerson = countries[i + 4].ToString();
+                        // Find all table rows within the table body
+                        var tableRows = tableBody.SelectNodes(".//tr");
+                        double continentPopulation = 0;
+                        double continentLandArea = 0;
+                        List<object> countries = new List<object>();
+                        foreach (var row in tableRows)
+                        {
+                            regionFound = true;
+                            string rank = row.SelectSingleNode(".//td[1]")?.InnerText;
+                            string country = row.SelectSingleNode(".//td[2]")?.InnerText;
+                            double landArea = double.Parse(row.SelectSingleNode(".//td[7]")?.InnerText.Replace(",", string.Empty));
+                            double population = double.Parse(row.SelectSingleNode(".//td[3]")?.InnerText.Replace(",", string.Empty));
+                            double landAreaPerPerson = population / landArea;
+                            countries.Add(rank);
+                            countries.Add(country);
+                            countries.Add(population.ToString("#,###"));
+                            countries.Add($"{landArea}");
+                            countries.Add($"{landAreaPerPerson:F1} Km²");
+                            continentLandArea += landArea;
+                            continentPopulation += population;
 
-                        Console.WriteLine($"{rank}. {country} {population}");
-                        Console.WriteLine($"{country} land area: {landArea} Km²");
-                        Console.WriteLine($"Land area per person: {landAreaPerPerson}");
-                        Console.WriteLine();
+                            Console.WriteLine();
+                            string continentLandAreaPerPerson = (continentPopulation / continentLandArea).ToString("#,###");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Continent Population:");
+                            Console.ResetColor();
+                            Console.WriteLine(continentPopulation.ToString("#,###"));
+                            Console.WriteLine();
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Continent Land Area:");
+                            Console.ResetColor();
+                            Console.WriteLine(continentLandArea.ToString("#,###"));
+                            Console.WriteLine();
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Continent Land Area per person:");
+                            Console.ResetColor();
+                            Console.WriteLine($"{continentLandAreaPerPerson}Km²");
+                            Console.WriteLine();
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Three most populated countries in this region:");
+                            Console.ResetColor();
+                            Console.WriteLine();
+                        }
+                        for (int i = 0; i < 15; i += 5)
+                        {
+                            string rank = countries[i].ToString();
+                            string country = countries[i + 1].ToString();
+                            string population = countries[i + 2].ToString();
+                            string landArea = string.Format("{0:#,###}", Convert.ToDouble(countries[i + 3]));
+                            string landAreaPerPerson = countries[i + 4].ToString();
+
+                            Console.WriteLine($"{rank}. {country} {population}");
+                            Console.WriteLine($"{country} land area: {landArea} Km²");
+                            Console.WriteLine($"Land area per person: {landAreaPerPerson}");
+                            Console.WriteLine();
+                        }
                     }
+                    else
+                    {
+                        Console.WriteLine("Continent not found.");
+                    }
+
                 }
                 catch(Exception ex)
                 {
@@ -388,7 +398,7 @@ class Program
     static string GetUrlRegion()
     {
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("What region would you like the data of? (press enter to exit)");
+        Console.WriteLine("What continent would you like the data of? (press enter to exit)");
         Console.ResetColor();
         string regionPicked = Console.ReadLine();
         if (string.IsNullOrWhiteSpace(regionPicked))
@@ -535,21 +545,31 @@ class Program
                         data = data.Select(element => element ?? "Not Found").ToArray();
                     }
                     data = data.Select(element => RemoveTextInsideBrackets(element)).ToArray();
-                    Console.WriteLine();
-                    Console.WriteLine($"{capatilizedCountry}:");
-                    Console.WriteLine("Median Age:");
-                    Console.WriteLine($"Total median age: {data[0]}");
-                    Console.WriteLine($"Male median age: {data[1]}");
-                    Console.WriteLine($"Female median age: {data[2]}");
-                    Console.WriteLine();
-                    Console.WriteLine("Life Expectancy:");
-                    Console.WriteLine($"Total life expectancy: {data[3]}");
-                    Console.WriteLine($"Male life expectancy: {data[4]}");
-                    Console.WriteLine($"Female life expectancy: {data[5]}");
-                    Console.WriteLine();
-                    Console.WriteLine("Urbanization:");
-                    Console.WriteLine($"Urban Population: {data[6]}");
-                    Console.WriteLine($"Urban Rate of Change: {data[7]}");
+                    string firstItem = data[0];
+                    bool allEqual = data.Skip(1).All(s => string.Equals(firstItem, s, StringComparison.InvariantCultureIgnoreCase));
+                    if (!allEqual)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine($"{capatilizedCountry}:");
+                        Console.WriteLine("Median Age:");
+                        Console.WriteLine($"Total median age: {data[0]}");
+                        Console.WriteLine($"Male median age: {data[1]}");
+                        Console.WriteLine($"Female median age: {data[2]}");
+                        Console.WriteLine();
+                        Console.WriteLine("Life Expectancy:");
+                        Console.WriteLine($"Total life expectancy: {data[3]}");
+                        Console.WriteLine($"Male life expectancy: {data[4]}");
+                        Console.WriteLine($"Female life expectancy: {data[5]}");
+                        Console.WriteLine();
+                        Console.WriteLine("Urbanization:");
+                        Console.WriteLine($"Urban Population: {data[6]}");
+                        Console.WriteLine($"Urban Rate of Change: {data[7]}");
+                    }
+                    else
+                    {
+                        Console.Write("Country not found.");
+                        Console.WriteLine();
+                    }
                 }
                 catch (Exception ex)
                 {

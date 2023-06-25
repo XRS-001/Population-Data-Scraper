@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Con_P\\Desktop\\Population Data Scraper\\Population-Data-Scraper-3\\Population Data Scraper\\Population Data Scraper.csproj": {}
+    "C:\\Users\\Con_P\\Desktop\\Population Data Scraper\\Population Data Scraper.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Con_P\\Desktop\\Population Data Scraper\\Population-Data-Scraper-3\\Population Data Scraper\\Population Data Scraper.csproj": {
+    "C:\\Users\\Con_P\\Desktop\\Population Data Scraper\\Population Data Scraper.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Con_P\\Desktop\\Population Data Scraper\\Population-Data-Scraper-3\\Population Data Scraper\\Population Data Scraper.csproj",
+        "projectUniqueName": "C:\\Users\\Con_P\\Desktop\\Population Data Scraper\\Population Data Scraper.csproj",
         "projectName": "Population Data Scraper",
-        "projectPath": "C:\\Users\\Con_P\\Desktop\\Population Data Scraper\\Population-Data-Scraper-3\\Population Data Scraper\\Population Data Scraper.csproj",
+        "projectPath": "C:\\Users\\Con_P\\Desktop\\Population Data Scraper\\Population Data Scraper.csproj",
         "packagesPath": "C:\\Users\\Con_P\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Con_P\\Desktop\\Population Data Scraper\\Population-Data-Scraper-3\\Population Data Scraper\\obj\\",
+        "outputPath": "C:\\Users\\Con_P\\Desktop\\Population Data Scraper\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Con_P\\AppData\\Roaming\\NuGet\\NuGet.Config",
